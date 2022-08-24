@@ -35,14 +35,14 @@
 
     export default {
         setup() {
+            const router = useRouter();
+            
             let form = reactive({
                 'email': '',
                 'password': '',
             });
 
-            // let error = ref('');
-
-            const router = useRouter();
+            // let error = ref('');           
 
             const login = async() => {
                 await axios.post('/api/login', form).then(res => {
