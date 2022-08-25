@@ -3,7 +3,7 @@ import { createApp } from 'vue';
 import router from './router.js';
 
 import App from './layouts/App.vue';
-import store from './store/index.js'
+import store from './store' //Just folder name. Its fetch by default index.js
 
 createApp(App)
 .use(router)

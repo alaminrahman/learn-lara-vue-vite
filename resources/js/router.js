@@ -3,6 +3,7 @@ import home from './pages/home.vue';
 import login from './pages/login.vue';
 import register from './pages/register.vue';
 import dashboard from './pages/dashboard.vue';
+import store from './store/index.js'
 
 const routes = [
     {
@@ -47,11 +48,11 @@ const router = createRouter({
 
 //Url Authenticate
 router.beforeEach((to, from) => {
-    if(to.meta.requiresAuth && !localStorage.getItem('token')){
+    if(to.meta.requiresAuth && store.getters.geToken == 0){
         return { name: 'Login'}
     }
 
-    if(to.meta.requiresAuth == false && localStorage.getItem('token')){
+    if(to.meta.requiresAuth == false && store.getters.geToken != 0){
         return { name: 'Dashboard'}
     }
 })
