@@ -3,8 +3,12 @@
         <div class="row">
             <div class="col-md-6 offset-md-3">
 
+                <h2>Login</h2>
+
+                <p class="text-danger" v-if="error">{{ error }}</p>
+
                 <form @submit.prevent="login">
-                    <div class="card mt-5">
+                    <div class="card">
                         <div class="card-body">
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email address</label>
@@ -30,7 +34,7 @@
 
 <script>
     import axios from 'axios';
-    import { reactive } from 'vue'
+    import { reactive, ref } from 'vue'
     import { useRouter } from 'vue-router'
 
     export default {
@@ -42,7 +46,7 @@
                 'password': '',
             });
 
-            // let error = ref('');           
+            let error = ref('');           
 
             const login = async() => {
                 await axios.post('/api/login', form).then(res => {
@@ -51,16 +55,16 @@
                         router.push({name:'Home'})
                         console.log(res)                        
                     }
-                    // else{
-                    //     error.value = res.data.message;                    
-                    // }
+                    else{
+                        error.value = res.data.message;                    
+                    }
                 })
             }
 
             return {
                 form,
                 login,
-                // error,
+                error,
             }
         }
  

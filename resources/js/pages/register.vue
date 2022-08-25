@@ -3,10 +3,14 @@
         <div class="row">
             <div class="col-md-6 offset-md-3">
 
-                <p class="text-danger">{{errors_msg.msg}}</p>
+                <h2>Register</h2>
+
+                <p class="text-danger" v-for="error in errors" :key="error">
+                    <span v-for="err in error" :key="err">{{ err }}</span>
+                </p>
 
                 <form @submit.prevent="register">
-                    <div class="card mt-5">
+                    <div class="card">
                         <div class="card-body">
 
                             <div class="mb-3">
@@ -43,7 +47,7 @@
 
 <script>
 
-import { reactive } from 'vue';
+import { reactive, ref } from 'vue';
 import axios from 'axios';
 
 export default {
@@ -55,26 +59,24 @@ export default {
             'c_password': '',
         });
 
-         let errors_msg = reactive({
-            'msg': ''
-        });
+        let errors = ref([]);
+
         const register = async() => {
             await axios.post('/api/register', form).then(res => {
                 if(res.data.success){
                     localStorage.setItem('Token', res.data.token)
                     console.log("Register")
-                }elseif(res.data.success == false){
-                    errors_msg.msg = res.message
-                    console.log('Error')
-                    console.log(res)
                 }
+            }).catch(e => {
+                errors.value = e.response.data.message;
             })
         }
 
         return {
             form,
             register,
-            errors_msg,
+            errors,
+
         }
     },
 }
