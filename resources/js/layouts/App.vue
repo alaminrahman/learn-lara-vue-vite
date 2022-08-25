@@ -8,15 +8,15 @@
                 </li>
                 
                 <li class="nav-item">
-                    <router-link :to="{name: 'Login'}" class="nav-link">Login</router-link>
+                    <router-link :to="{name: 'Login'}" class="nav-link" v-if="$store.getters.getToken == 0">Login</router-link>
                 </li>
 
                 <li class="nav-item">
-                    <router-link :to="{name: 'Register'}" class="nav-link">Register</router-link>
+                    <router-link :to="{name: 'Register'}" class="nav-link" v-if="$store.getters.getToken == 0">Register</router-link>
                 </li>
 
                 <li class="nav-item">
-                    <router-link :to="{name: 'Dashboard'}" class="nav-link">Dashboard</router-link>
+                    <router-link :to="{name: 'Dashboard'}" class="nav-link" v-if="$store.getters.getToken != 0">Dashboard</router-link>
                 </li>
           
            
